@@ -1,0 +1,8 @@
+mysql -h localhost -u root -p
+
+
+create table uk2(id int auto_increment,name varchar(50),email varchar(50),salary varchar(50) unique key,college varchar(50),,phone varchar(50),dept varchar(50)
+,primary key(id));
+
+
+insert into uk2(name,email,salary,college,phone,dept)value("aman","ab@gmail.com","1000","mits","911","cs");

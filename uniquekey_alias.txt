@@ -1,0 +1,91 @@
+
+Setting environment for using XAMPP for Windows.
+dell@DESKTOP-GRU9DLK c:\xampp
+# mysql -h localhost -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.20-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use mits;
+Database changed
+MariaDB [mits]> select * from mits;
+ERROR 1146 (42S02): Table 'mits.mits' doesn't exist
+MariaDB [mits]> select * from teachers;
++----+-------+------------------+---------+--------+-------+
+| id | name  | email            | college | salary | phone |
++----+-------+------------------+---------+--------+-------+
+|  1 | ram   | 1p1@gmail.com    | itm     | 1000   | 334   |
+|  2 | rahul | 1p1@gmail.com    | rjit    | 2000   | 3334  |
+|  3 | raj   | kf1@gmail.com    | itm     | 1000   | 3334  |
+|  4 | abhay | 323ff1@gmail.com | mits    | 2000   | 911   |
++----+-------+------------------+---------+--------+-------+
+4 rows in set (0.013 sec)
+
+MariaDB [mits]> desc teachers;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| id      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(50) | YES  |     | NULL    |                |
+| email   | varchar(50) | YES  |     | NULL    |                |
+| college | varchar(50) | YES  |     | NULL    |                |
+| salary  | varchar(50) | YES  |     | NULL    |                |
+| phone   | varchar(50) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+6 rows in set (0.091 sec)
+
+MariaDB [mits]> create table uk(id int auto_increment,name varchar(50),email varchar(50),college varchar(50) unique key,salary varchar(50) unique key ,phone varchar(50),primary key(id));
+Query OK, 0 rows affected (0.061 sec)
+
+MariaDB [mits]> desc uk
+    -> desc uk;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'desc uk' at line 2
+MariaDB [mits]> insert into uk(name,email,college,salary,phone)value("aman","11@gmail.com","itm","1000","911");
+Query OK, 1 row affected (0.009 sec)
+
+MariaDB [mits]> select * from uk;
++----+------+--------------+---------+--------+-------+
+| id | name | email        | college | salary | phone |
++----+------+--------------+---------+--------+-------+
+|  1 | aman | 11@gmail.com | itm     | 1000   | 911   |
++----+------+--------------+---------+--------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [mits]> insert into uk(name,email,college,salary,phone)value("pratham","11@gmail.com","itm","1000","911");
+ERROR 1062 (23000): Duplicate entry 'itm' for key 'college'
+MariaDB [mits]> insert into uk(name,email,college,salary,phone)value("pratham","11@gmail.com","mits","2000","911");
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> select * from uk;
++----+---------+--------------+---------+--------+-------+
+| id | name    | email        | college | salary | phone |
++----+---------+--------------+---------+--------+-------+
+|  1 | aman    | 11@gmail.com | itm     | 1000   | 911   |
+|  3 | pratham | 11@gmail.com | mits    | 2000   | 911   |
++----+---------+--------------+---------+--------+-------+
+2 rows in set (0.001 sec)
+
+MariaDB [mits]> select name as naam from uk;
++---------+
+| naam    |
++---------+
+| aman    |
+| pratham |
++---------+
+2 rows in set (0.001 sec)
+
+MariaDB [mits]> select name from uk as naam;
++---------+
+| name    |
++---------+
+| aman    |
+| pratham |
++---------+
+2 rows in set (0.000 sec)
+
+MariaDB [mits]>

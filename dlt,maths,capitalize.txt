@@ -1,0 +1,297 @@
+
+Setting environment for using XAMPP for Windows.
+dell@DESKTOP-GRU9DLK c:\xampp
+# mysql -h localhost -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.20-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use mits;
+Database changed
+MariaDB [mits]> select * from mits;
+ERROR 1146 (42S02): Table 'mits.mits' doesn't exist
+MariaDB [mits]> select * from products;
++-------+----+------+-----------+--------------+---------+-----------+------+------+-------+
+| price | id | xyz  | name      | email        | college | emergency | city | mpct | model |
++-------+----+------+-----------+--------------+---------+-----------+------+------+-------+
+| NULL  |  1 | NULL | john      | as@gmail.com | itm     | 911       | NULL | NULL | NULL  |
+| NULL  |  2 | NULL | akbar     | bs@gmail.com | itm     | 91        | NULL | NULL | NULL  |
+| NULL  |  3 | NULL | akbar     | cs@gmail.com | itm     | 1         | NULL | NULL | NULL  |
+| NULL  |  4 | NULL | anthionyr | ds@gmail.com | itm     | 100       | NULL | NULL | NULL  |
++-------+----+------+-----------+--------------+---------+-----------+------+------+-------+
+4 rows in set (0.071 sec)
+
+MariaDB [mits]> desc products;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| price     | varchar(50) | YES  |     | NULL    |                |
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| xyz       | varchar(50) | YES  | UNI | NULL    |                |
+| name      | varchar(50) | YES  |     | NULL    |                |
+| email     | varchar(50) | YES  | UNI | NULL    |                |
+| college   | varchar(50) | YES  |     | NULL    |                |
+| emergency | varchar(50) | YES  | UNI | NULL    |                |
+| city      | varchar(50) | YES  |     | NULL    |                |
+| mpct      | varchar(50) | YES  |     | NULL    |                |
+| model     | varchar(50) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+10 rows in set (0.027 sec)
+
+MariaDB [mits]> delete from products where id = "1";
+Query OK, 1 row affected (0.011 sec)
+
+MariaDB [mits]> select * from products;
++-------+----+------+-----------+--------------+---------+-----------+------+------+-------+
+| price | id | xyz  | name      | email        | college | emergency | city | mpct | model |
++-------+----+------+-----------+--------------+---------+-----------+------+------+-------+
+| NULL  |  2 | NULL | akbar     | bs@gmail.com | itm     | 91        | NULL | NULL | NULL  |
+| NULL  |  3 | NULL | akbar     | cs@gmail.com | itm     | 1         | NULL | NULL | NULL  |
+| NULL  |  4 | NULL | anthionyr | ds@gmail.com | itm     | 100       | NULL | NULL | NULL  |
++-------+----+------+-----------+--------------+---------+-----------+------+------+-------+
+3 rows in set (0.000 sec)
+
+MariaDB [mits]> alter table products drop column city;
+Query OK, 0 rows affected (0.023 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mits]> select * from products;
++-------+----+------+-----------+--------------+---------+-----------+------+-------+
+| price | id | xyz  | name      | email        | college | emergency | mpct | model |
++-------+----+------+-----------+--------------+---------+-----------+------+-------+
+| NULL  |  2 | NULL | akbar     | bs@gmail.com | itm     | 91        | NULL | NULL  |
+| NULL  |  3 | NULL | akbar     | cs@gmail.com | itm     | 1         | NULL | NULL  |
+| NULL  |  4 | NULL | anthionyr | ds@gmail.com | itm     | 100       | NULL | NULL  |
++-------+----+------+-----------+--------------+---------+-----------+------+-------+
+3 rows in set (0.000 sec)
+
+MariaDB [mits]> alter table products add column salary varchar(50);
+Query OK, 0 rows affected (0.022 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mits]> select * from products;
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+| price | id | xyz  | name      | email        | college | emergency | mpct | model | salary |
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+| NULL  |  2 | NULL | akbar     | bs@gmail.com | itm     | 91        | NULL | NULL  | NULL   |
+| NULL  |  3 | NULL | akbar     | cs@gmail.com | itm     | 1         | NULL | NULL  | NULL   |
+| NULL  |  4 | NULL | anthionyr | ds@gmail.com | itm     | 100       | NULL | NULL  | NULL   |
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+3 rows in set (0.001 sec)
+
+MariaDB [mits]> insert into products(salary)value("10000");
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> select * from products;
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+| price | id | xyz  | name      | email        | college | emergency | mpct | model | salary |
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+| NULL  |  2 | NULL | akbar     | bs@gmail.com | itm     | 91        | NULL | NULL  | NULL   |
+| NULL  |  3 | NULL | akbar     | cs@gmail.com | itm     | 1         | NULL | NULL  | NULL   |
+| NULL  |  4 | NULL | anthionyr | ds@gmail.com | itm     | 100       | NULL | NULL  | NULL   |
+| NULL  |  5 | NULL | NULL      | NULL         | NULL    | NULL      | NULL | NULL  | 10000  |
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+4 rows in set (0.000 sec)
+
+MariaDB [mits]> insert into products(salary)value("10000","20000");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [mits]> insert into products(salary)value("20000") where id = "1";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where id = "1"' at line 1
+MariaDB [mits]> insert into products(salary)value("20000");
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> insert into products(salary)value("30000");
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [mits]> insert into products(salary)value("40000");
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> select * from products;
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+| price | id | xyz  | name      | email        | college | emergency | mpct | model | salary |
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+| NULL  |  2 | NULL | akbar     | bs@gmail.com | itm     | 91        | NULL | NULL  | NULL   |
+| NULL  |  3 | NULL | akbar     | cs@gmail.com | itm     | 1         | NULL | NULL  | NULL   |
+| NULL  |  4 | NULL | anthionyr | ds@gmail.com | itm     | 100       | NULL | NULL  | NULL   |
+| NULL  |  5 | NULL | NULL      | NULL         | NULL    | NULL      | NULL | NULL  | 10000  |
+| NULL  |  6 | NULL | NULL      | NULL         | NULL    | NULL      | NULL | NULL  | 20000  |
+| NULL  |  7 | NULL | NULL      | NULL         | NULL    | NULL      | NULL | NULL  | 30000  |
+| NULL  |  8 | NULL | NULL      | NULL         | NULL    | NULL      | NULL | NULL  | 40000  |
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+7 rows in set (0.000 sec)
+
+MariaDB [mits]> update products set salary = "1000" where id = "1";
+Query OK, 0 rows affected (0.001 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+MariaDB [mits]> select * from products;
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+| price | id | xyz  | name      | email        | college | emergency | mpct | model | salary |
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+| NULL  |  2 | NULL | akbar     | bs@gmail.com | itm     | 91        | NULL | NULL  | NULL   |
+| NULL  |  3 | NULL | akbar     | cs@gmail.com | itm     | 1         | NULL | NULL  | NULL   |
+| NULL  |  4 | NULL | anthionyr | ds@gmail.com | itm     | 100       | NULL | NULL  | NULL   |
+| NULL  |  5 | NULL | NULL      | NULL         | NULL    | NULL      | NULL | NULL  | 10000  |
+| NULL  |  6 | NULL | NULL      | NULL         | NULL    | NULL      | NULL | NULL  | 20000  |
+| NULL  |  7 | NULL | NULL      | NULL         | NULL    | NULL      | NULL | NULL  | 30000  |
+| NULL  |  8 | NULL | NULL      | NULL         | NULL    | NULL      | NULL | NULL  | 40000  |
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+7 rows in set (0.001 sec)
+
+MariaDB [mits]> update products set salary = "1000" where id = "2";
+Query OK, 1 row affected (0.004 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [mits]> select * from products;
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+| price | id | xyz  | name      | email        | college | emergency | mpct | model | salary |
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+| NULL  |  2 | NULL | akbar     | bs@gmail.com | itm     | 91        | NULL | NULL  | 1000   |
+| NULL  |  3 | NULL | akbar     | cs@gmail.com | itm     | 1         | NULL | NULL  | NULL   |
+| NULL  |  4 | NULL | anthionyr | ds@gmail.com | itm     | 100       | NULL | NULL  | NULL   |
+| NULL  |  5 | NULL | NULL      | NULL         | NULL    | NULL      | NULL | NULL  | 10000  |
+| NULL  |  6 | NULL | NULL      | NULL         | NULL    | NULL      | NULL | NULL  | 20000  |
+| NULL  |  7 | NULL | NULL      | NULL         | NULL    | NULL      | NULL | NULL  | 30000  |
+| NULL  |  8 | NULL | NULL      | NULL         | NULL    | NULL      | NULL | NULL  | 40000  |
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+7 rows in set (0.001 sec)
+
+MariaDB [mits]> update products set salary = "1000" where id = "3";
+Query OK, 1 row affected (0.004 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [mits]> update products set salary = "1000" where id = "4";
+Query OK, 1 row affected (0.004 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [mits]> delete from products where id = "1";
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [mits]> delete from products where id = "5";
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> delete from products where id = "6";
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> delete from products where id = "7";
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> delete from products where id = "8";
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> select * from products;
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+| price | id | xyz  | name      | email        | college | emergency | mpct | model | salary |
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+| NULL  |  2 | NULL | akbar     | bs@gmail.com | itm     | 91        | NULL | NULL  | 1000   |
+| NULL  |  3 | NULL | akbar     | cs@gmail.com | itm     | 1         | NULL | NULL  | 1000   |
+| NULL  |  4 | NULL | anthionyr | ds@gmail.com | itm     | 100       | NULL | NULL  | 1000   |
++-------+----+------+-----------+--------------+---------+-----------+------+-------+--------+
+3 rows in set (0.001 sec)
+
+MariaDB [mits]> select name,salary from products where salary = (select min(salary) from products);
++-----------+--------+
+| name      | salary |
++-----------+--------+
+| akbar     | 1000   |
+| akbar     | 1000   |
+| anthionyr | 1000   |
++-----------+--------+
+3 rows in set (0.006 sec)
+
+MariaDB [mits]> select sum(salary) from products;
++-------------+
+| sum(salary) |
++-------------+
+|        3000 |
++-------------+
+1 row in set (0.003 sec)
+
+MariaDB [mits]> select avg(salary) from products;
++-------------+
+| avg(salary) |
++-------------+
+|        1000 |
++-------------+
+1 row in set (0.001 sec)
+
+MariaDB [mits]> select count(*) from products;
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.001 sec)
+
+MariaDB [mits]> select upper(name) from products;
++-------------+
+| upper(name) |
++-------------+
+| AKBAR       |
+| AKBAR       |
+| ANTHIONYR   |
++-------------+
+3 rows in set (0.003 sec)
+
+MariaDB [mits]> select ucase(name) from products;
++-------------+
+| ucase(name) |
++-------------+
+| AKBAR       |
+| AKBAR       |
+| ANTHIONYR   |
++-------------+
+3 rows in set (0.001 sec)
+
+MariaDB [mits]> select lcase(name) from products;
++-------------+
+| lcase(name) |
++-------------+
+| akbar       |
+| akbar       |
+| anthionyr   |
++-------------+
+3 rows in set (0.000 sec)
+
+MariaDB [mits]> select lower(name) from products;
++-------------+
+| lower(name) |
++-------------+
+| akbar       |
+| akbar       |
+| anthionyr   |
++-------------+
+3 rows in set (0.000 sec)
+
+MariaDB [mits]> create table army(id int auto_increment,name varchar(50),email varchar(50) unique key,phone varchar(50),salary varchar(50),college varchar(50),dept varchar(50),primary key(id));
+Query OK, 0 rows affected (0.040 sec)
+
+MariaDB [mits]> insert into army(name,email,phone,salary,college,dept)value("aaman","1@gmail.com","911","1000","itm","cse");
+Query OK, 1 row affected (0.006 sec)
+
+MariaDB [mits]> insert into army(name,email,phone,salary,college,dept)value("chaman","2@gmail.com","911","3000","itm","ee");
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> insert into army(name,email,phone,salary,college,dept)value("raman","3@gmail.com","911","4000","mits","ee");
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> insert into army(name,email,phone,salary,college,dept)value("pracf","4@gmail.com","334","5000","ttits","itm");
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> select * from army;
++----+--------+-------------+-------+--------+---------+------+
+| id | name   | email       | phone | salary | college | dept |
++----+--------+-------------+-------+--------+---------+------+
+|  1 | aaman  | 1@gmail.com | 911   | 1000   | itm     | cse  |
+|  2 | chaman | 2@gmail.com | 911   | 3000   | itm     | ee   |
+|  3 | raman  | 3@gmail.com | 911   | 4000   | mits    | ee   |
+|  4 | pracf  | 4@gmail.com | 334   | 5000   | ttits   | itm  |
++----+--------+-------------+-------+--------+---------+------+
+4 rows in set (0.001 sec)
+
+MariaDB [mits]>

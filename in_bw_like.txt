@@ -1,0 +1,124 @@
+
+Setting environment for using XAMPP for Windows.
+dell@DESKTOP-GRU9DLK c:\xampp
+# mysql -h localhost -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.20-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use mits;
+Database changed
+MariaDB [mits]> select * from teachers;
++----+-------+------------------+---------+--------+-------+
+| id | name  | email            | college | salary | phone |
++----+-------+------------------+---------+--------+-------+
+|  1 | ram   | 1p1@gmail.com    | itm     | 1000   | 334   |
+|  2 | rahul | 1p1@gmail.com    | rjit    | 2000   | 3334  |
+|  3 | raj   | kf1@gmail.com    | itm     | 1000   | 3334  |
+|  4 | abhay | 323ff1@gmail.com | mits    | 2000   | 911   |
++----+-------+------------------+---------+--------+-------+
+4 rows in set (0.069 sec)
+
+MariaDB [mits]> select * from teachers where name in ("ram","abhay");
++----+-------+------------------+---------+--------+-------+
+| id | name  | email            | college | salary | phone |
++----+-------+------------------+---------+--------+-------+
+|  1 | ram   | 1p1@gmail.com    | itm     | 1000   | 334   |
+|  4 | abhay | 323ff1@gmail.com | mits    | 2000   | 911   |
++----+-------+------------------+---------+--------+-------+
+2 rows in set (0.006 sec)
+
+MariaDB [mits]> select salary from teachers where name in ("ram","abhay");
++--------+
+| salary |
++--------+
+| 1000   |
+| 2000   |
++--------+
+2 rows in set (0.001 sec)
+
+MariaDB [mits]> select college,salary from teachers where name in ("ram","abhay");
++---------+--------+
+| college | salary |
++---------+--------+
+| itm     | 1000   |
+| mits    | 2000   |
++---------+--------+
+2 rows in set (0.001 sec)
+
+MariaDB [mits]> select name from teachers where college not in ("itm","mits");
++-------+
+| name  |
++-------+
+| rahul |
++-------+
+1 row in set (0.001 sec)
+
+MariaDB [mits]> select * from teachers;
++----+-------+------------------+---------+--------+-------+
+| id | name  | email            | college | salary | phone |
++----+-------+------------------+---------+--------+-------+
+|  1 | ram   | 1p1@gmail.com    | itm     | 1000   | 334   |
+|  2 | rahul | 1p1@gmail.com    | rjit    | 2000   | 3334  |
+|  3 | raj   | kf1@gmail.com    | itm     | 1000   | 3334  |
+|  4 | abhay | 323ff1@gmail.com | mits    | 2000   | 911   |
++----+-------+------------------+---------+--------+-------+
+4 rows in set (0.001 sec)
+
+MariaDB [mits]> select * from teachers where id between 1 and 3;
++----+-------+---------------+---------+--------+-------+
+| id | name  | email         | college | salary | phone |
++----+-------+---------------+---------+--------+-------+
+|  1 | ram   | 1p1@gmail.com | itm     | 1000   | 334   |
+|  2 | rahul | 1p1@gmail.com | rjit    | 2000   | 3334  |
+|  3 | raj   | kf1@gmail.com | itm     | 1000   | 3334  |
++----+-------+---------------+---------+--------+-------+
+3 rows in set (0.005 sec)
+
+MariaDB [mits]> select name,city from teachers where id between 1 and 3;
+ERROR 1054 (42S22): Unknown column 'city' in 'field list'
+MariaDB [mits]> select name,college from teachers where id between 1 and 3;
++-------+---------+
+| name  | college |
++-------+---------+
+| ram   | itm     |
+| rahul | rjit    |
+| raj   | itm     |
++-------+---------+
+3 rows in set (0.001 sec)
+
+MariaDB [mits]> select * from teachers where(salary between 1000 and 2000) and college in ("itm","rjit");
++----+-------+---------------+---------+--------+-------+
+| id | name  | email         | college | salary | phone |
++----+-------+---------------+---------+--------+-------+
+|  1 | ram   | 1p1@gmail.com | itm     | 1000   | 334   |
+|  2 | rahul | 1p1@gmail.com | rjit    | 2000   | 3334  |
+|  3 | raj   | kf1@gmail.com | itm     | 1000   | 3334  |
++----+-------+---------------+---------+--------+-------+
+3 rows in set (0.004 sec)
+
+MariaDB [mits]> select * from teachers where name like "a%";
++----+-------+------------------+---------+--------+-------+
+| id | name  | email            | college | salary | phone |
++----+-------+------------------+---------+--------+-------+
+|  4 | abhay | 323ff1@gmail.com | mits    | 2000   | 911   |
++----+-------+------------------+---------+--------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [mits]> select * from teachers where name like "%j";
++----+------+---------------+---------+--------+-------+
+| id | name | email         | college | salary | phone |
++----+------+---------------+---------+--------+-------+
+|  3 | raj  | kf1@gmail.com | itm     | 1000   | 3334  |
++----+------+---------------+---------+--------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [mits]> select * from teachers where name like "%lr%";
+Empty set (0.001 sec)
+
+MariaDB [mits]>

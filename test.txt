@@ -1,0 +1,246 @@
+
+Setting environment for using XAMPP for Windows.
+dell@DESKTOP-GRU9DLK c:\xampp
+# mysql -h localhost -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.20-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use mits;
+Database changed
+MariaDB [mits]> create table customers(c_id int auto_increment,name varchar(50),email varchar(50) unique key,phone varchar(50),address varchar(50),college varchar(50),salary varchar(50),dept varchar(50));
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+MariaDB [mits]> create table customers2(c_id int auto_increment,name varchar(50),email varchar(50) unique key,phone varchar(50),address varchar(50),college varchar(50),salary varchar(50),dept varchar(50));
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+MariaDB [mits]> create table customers2(c_id int auto_increment primary key,name varchar(50),email varchar(50) unique key,phone varchar(50),address varchar(50),college varchar(50),salary varchar(50),dept varchar(50));
+Query OK, 0 rows affected (0.044 sec)
+
+MariaDB [mits]> desc customers2;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| c_id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(50) | YES  |     | NULL    |                |
+| email   | varchar(50) | YES  | UNI | NULL    |                |
+| phone   | varchar(50) | YES  |     | NULL    |                |
+| address | varchar(50) | YES  |     | NULL    |                |
+| college | varchar(50) | YES  |     | NULL    |                |
+| salary  | varchar(50) | YES  |     | NULL    |                |
+| dept    | varchar(50) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+8 rows in set (0.030 sec)
+
+MariaDB [mits]> insert into customers2(name,email,phone,address,college,salary,dept)value("aman","1a@gmail","121","nagar","itm","1000","cs");
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> insert into customers2(name,email,phone,address,college,salary,dept)value("arjun","2a@gmail","121","nagar","itm","1000","cs");
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> insert into customers2(name,email,phone,address,college,salary,dept)value("karan","3a@gmail","1344","nagar2","mits","2000","it");
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [mits]> insert into customers2(name,email,phone,address,college,salary,dept)value("rahul","4a@gmail","1344","haveli2","rjit","3000","it");
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> select * from from customers2 order by c_id desc limit 3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from customers2 order by c_id desc limit 3' at line 1
+MariaDB [mits]> select * from from customers2 order by c_id desc limit 3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from customers2 order by c_id desc limit 3' at line 1
+MariaDB [mits]> select * from customers2 where name in ("aman","arjun");
++------+-------+----------+-------+---------+---------+--------+------+
+| c_id | name  | email    | phone | address | college | salary | dept |
++------+-------+----------+-------+---------+---------+--------+------+
+|    1 | aman  | 1a@gmail | 121   | nagar   | itm     | 1000   | cs   |
+|    2 | arjun | 2a@gmail | 121   | nagar   | itm     | 1000   | cs   |
++------+-------+----------+-------+---------+---------+--------+------+
+2 rows in set (0.001 sec)
+
+MariaDB [mits]> select * from customers2 where id between 1 and 4;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+MariaDB [mits]> select * from customers2 where c_id between 1 and 4;
++------+-------+----------+-------+---------+---------+--------+------+
+| c_id | name  | email    | phone | address | college | salary | dept |
++------+-------+----------+-------+---------+---------+--------+------+
+|    1 | aman  | 1a@gmail | 121   | nagar   | itm     | 1000   | cs   |
+|    2 | arjun | 2a@gmail | 121   | nagar   | itm     | 1000   | cs   |
+|    3 | karan | 3a@gmail | 1344  | nagar2  | mits    | 2000   | it   |
+|    4 | rahul | 4a@gmail | 1344  | haveli2 | rjit    | 3000   | it   |
++------+-------+----------+-------+---------+---------+--------+------+
+4 rows in set (0.000 sec)
+
+MariaDB [mits]> select * from customers2 where (salary between 2000 and 3000) and college in ("mits","rjit");
++------+-------+----------+-------+---------+---------+--------+------+
+| c_id | name  | email    | phone | address | college | salary | dept |
++------+-------+----------+-------+---------+---------+--------+------+
+|    3 | karan | 3a@gmail | 1344  | nagar2  | mits    | 2000   | it   |
+|    4 | rahul | 4a@gmail | 1344  | haveli2 | rjit    | 3000   | it   |
++------+-------+----------+-------+---------+---------+--------+------+
+2 rows in set (0.001 sec)
+
+MariaDB [mits]> select * from customers2 where name like "a%";
++------+-------+----------+-------+---------+---------+--------+------+
+| c_id | name  | email    | phone | address | college | salary | dept |
++------+-------+----------+-------+---------+---------+--------+------+
+|    1 | aman  | 1a@gmail | 121   | nagar   | itm     | 1000   | cs   |
+|    2 | arjun | 2a@gmail | 121   | nagar   | itm     | 1000   | cs   |
++------+-------+----------+-------+---------+---------+--------+------+
+2 rows in set (0.001 sec)
+
+MariaDB [mits]> select * from customers2 order by c_id desc limit 3;
++------+-------+----------+-------+---------+---------+--------+------+
+| c_id | name  | email    | phone | address | college | salary | dept |
++------+-------+----------+-------+---------+---------+--------+------+
+|    4 | rahul | 4a@gmail | 1344  | haveli2 | rjit    | 3000   | it   |
+|    3 | karan | 3a@gmail | 1344  | nagar2  | mits    | 2000   | it   |
+|    2 | arjun | 2a@gmail | 121   | nagar   | itm     | 1000   | cs   |
++------+-------+----------+-------+---------+---------+--------+------+
+3 rows in set (0.001 sec)
+
+MariaDB [mits]> alter table customers2 add column team varchar(50);
+Query OK, 0 rows affected (0.021 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mits]> select * from customers2;
++------+-------+----------+-------+---------+---------+--------+------+------+
+| c_id | name  | email    | phone | address | college | salary | dept | team |
++------+-------+----------+-------+---------+---------+--------+------+------+
+|    1 | aman  | 1a@gmail | 121   | nagar   | itm     | 1000   | cs   | NULL |
+|    2 | arjun | 2a@gmail | 121   | nagar   | itm     | 1000   | cs   | NULL |
+|    3 | karan | 3a@gmail | 1344  | nagar2  | mits    | 2000   | it   | NULL |
+|    4 | rahul | 4a@gmail | 1344  | haveli2 | rjit    | 3000   | it   | NULL |
++------+-------+----------+-------+---------+---------+--------+------+------+
+4 rows in set (0.000 sec)
+
+MariaDB [mits]> update customers2 set phone = "999" where id = 1;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+MariaDB [mits]> update customers2 set phone = "999" where c_id = 1;
+Query OK, 1 row affected (0.004 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [mits]> select * from customers2;
++------+-------+----------+-------+---------+---------+--------+------+------+
+| c_id | name  | email    | phone | address | college | salary | dept | team |
++------+-------+----------+-------+---------+---------+--------+------+------+
+|    1 | aman  | 1a@gmail | 999   | nagar   | itm     | 1000   | cs   | NULL |
+|    2 | arjun | 2a@gmail | 121   | nagar   | itm     | 1000   | cs   | NULL |
+|    3 | karan | 3a@gmail | 1344  | nagar2  | mits    | 2000   | it   | NULL |
+|    4 | rahul | 4a@gmail | 1344  | haveli2 | rjit    | 3000   | it   | NULL |
++------+-------+----------+-------+---------+---------+--------+------+------+
+4 rows in set (0.001 sec)
+
+MariaDB [mits]> delete from customers2 where c_id = 4;
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> select * from customers2;
++------+-------+----------+-------+---------+---------+--------+------+------+
+| c_id | name  | email    | phone | address | college | salary | dept | team |
++------+-------+----------+-------+---------+---------+--------+------+------+
+|    1 | aman  | 1a@gmail | 999   | nagar   | itm     | 1000   | cs   | NULL |
+|    2 | arjun | 2a@gmail | 121   | nagar   | itm     | 1000   | cs   | NULL |
+|    3 | karan | 3a@gmail | 1344  | nagar2  | mits    | 2000   | it   | NULL |
++------+-------+----------+-------+---------+---------+--------+------+------+
+3 rows in set (0.000 sec)
+
+MariaDB [mits]> select name,salary from customers2 where salary = (select min(salary) from customers2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [mits]> select salary from customers2 where salary = (select min(salary) from customers2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [mits]> select sum(salary) from customers2;
++-------------+
+| sum(salary) |
++-------------+
+|        4000 |
++-------------+
+1 row in set (0.001 sec)
+
+MariaDB [mits]> select avg(salary) from customers2;
++--------------------+
+| avg(salary)        |
++--------------------+
+| 1333.3333333333333 |
++--------------------+
+1 row in set (0.000 sec)
+
+MariaDB [mits]> select count(*) from customers2;
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.001 sec)
+
+MariaDB [mits]> create table bill(id int auto_increment primary key,amount_bill varchar(50),c_id int not null,foreign key(c_id) references customers2(c_id));
+Query OK, 0 rows affected (0.053 sec)
+
+MariaDB [mits]> desc bill;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| id          | int(11)     | NO   | PRI | NULL    | auto_increment |
+| amount_bill | varchar(50) | YES  |     | NULL    |                |
+| c_id        | int(11)     | NO   | MUL | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.030 sec)
+
+MariaDB [mits]> insert into bill(amount_bill,c_id)value("100",1);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> insert into bill(amount_bill,c_id)value("200",1);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> insert into bill(amount_bill,c_id)value("300",2);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> insert into bill(amount_bill,c_id)value("400",2);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> insert into bill(amount_bill,c_id)value("500",3);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> select * from customers2 join bill on customers2.c_id = bill.c_id;
++------+-------+----------+-------+---------+---------+--------+------+------+----+-------------+------+
+| c_id | name  | email    | phone | address | college | salary | dept | team | id | amount_bill | c_id |
++------+-------+----------+-------+---------+---------+--------+------+------+----+-------------+------+
+|    1 | aman  | 1a@gmail | 999   | nagar   | itm     | 1000   | cs   | NULL |  1 | 100         |    1 |
+|    1 | aman  | 1a@gmail | 999   | nagar   | itm     | 1000   | cs   | NULL |  2 | 200         |    1 |
+|    2 | arjun | 2a@gmail | 121   | nagar   | itm     | 1000   | cs   | NULL |  3 | 300         |    2 |
+|    2 | arjun | 2a@gmail | 121   | nagar   | itm     | 1000   | cs   | NULL |  4 | 400         |    2 |
+|    3 | karan | 3a@gmail | 1344  | nagar2  | mits    | 2000   | it   | NULL |  5 | 500         |    3 |
++------+-------+----------+-------+---------+---------+--------+------+------+----+-------------+------+
+5 rows in set (0.001 sec)
+
+MariaDB [mits]> select * from customers2 left join bill on customers2.c_id = bill.c_id;
++------+-------+----------+-------+---------+---------+--------+------+------+------+-------------+------+
+| c_id | name  | email    | phone | address | college | salary | dept | team | id   | amount_bill | c_id |
++------+-------+----------+-------+---------+---------+--------+------+------+------+-------------+------+
+|    1 | aman  | 1a@gmail | 999   | nagar   | itm     | 1000   | cs   | NULL |    1 | 100         |    1 |
+|    1 | aman  | 1a@gmail | 999   | nagar   | itm     | 1000   | cs   | NULL |    2 | 200         |    1 |
+|    2 | arjun | 2a@gmail | 121   | nagar   | itm     | 1000   | cs   | NULL |    3 | 300         |    2 |
+|    2 | arjun | 2a@gmail | 121   | nagar   | itm     | 1000   | cs   | NULL |    4 | 400         |    2 |
+|    3 | karan | 3a@gmail | 1344  | nagar2  | mits    | 2000   | it   | NULL |    5 | 500         |    3 |
++------+-------+----------+-------+---------+---------+--------+------+------+------+-------------+------+
+5 rows in set (0.001 sec)
+
+MariaDB [mits]> select name,salary from customers2 where salary = (select min(salary) from customers2);
++-------+--------+
+| name  | salary |
++-------+--------+
+| aman  | 1000   |
+| arjun | 1000   |
++-------+--------+
+2 rows in set (0.006 sec)
+
+MariaDB [mits]> select name,salary from customers2 where salary = (select max(salary) from customers2);
++-------+--------+
+| name  | salary |
++-------+--------+
+| karan | 2000   |
++-------+--------+
+1 row in set (0.001 sec)
+
+MariaDB [mits]>

@@ -1,0 +1,131 @@
+
+Setting environment for using XAMPP for Windows.
+dell@DESKTOP-GRU9DLK c:\xampp
+# mysql -h localhost -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.20-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use database delhi;
+ERROR 1049 (42000): Unknown database 'database'
+MariaDB [(none)]> use databases delhi;
+ERROR 1049 (42000): Unknown database 'databases'
+MariaDB [(none)]> use delhi;
+Database changed
+MariaDB [delhi]> select * from user;
++----+--------+---------+---------+--------+--------+
+| id | name   | city    | college | phone  | salary |
++----+--------+---------+---------+--------+--------+
+|  1 | amar   | gwalior | itm     | 33333  | 2000   |
+|  2 | akbar  | delhi   | amity   | 43245  | 1000   |
+|  3 | rahul  | gwalior | itm     | 43245  | 3000   |
+|  4 | ramesh | bhopal  | rjit    | 245    | 1000   |
+|  5 | suresh | gwalior | mits    | 444444 | 1000   |
++----+--------+---------+---------+--------+--------+
+5 rows in set (0.117 sec)
+
+MariaDB [delhi]> select * from user limit 4;
++----+--------+---------+---------+-------+--------+
+| id | name   | city    | college | phone | salary |
++----+--------+---------+---------+-------+--------+
+|  1 | amar   | gwalior | itm     | 33333 | 2000   |
+|  2 | akbar  | delhi   | amity   | 43245 | 1000   |
+|  3 | rahul  | gwalior | itm     | 43245 | 3000   |
+|  4 | ramesh | bhopal  | rjit    | 245   | 1000   |
++----+--------+---------+---------+-------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [delhi]> select * from user limit 3;
++----+-------+---------+---------+-------+--------+
+| id | name  | city    | college | phone | salary |
++----+-------+---------+---------+-------+--------+
+|  1 | amar  | gwalior | itm     | 33333 | 2000   |
+|  2 | akbar | delhi   | amity   | 43245 | 1000   |
+|  3 | rahul | gwalior | itm     | 43245 | 3000   |
++----+-------+---------+---------+-------+--------+
+3 rows in set (0.001 sec)
+
+MariaDB [delhi]> select * from user limit 1,4;
++----+--------+---------+---------+--------+--------+
+| id | name   | city    | college | phone  | salary |
++----+--------+---------+---------+--------+--------+
+|  2 | akbar  | delhi   | amity   | 43245  | 1000   |
+|  3 | rahul  | gwalior | itm     | 43245  | 3000   |
+|  4 | ramesh | bhopal  | rjit    | 245    | 1000   |
+|  5 | suresh | gwalior | mits    | 444444 | 1000   |
++----+--------+---------+---------+--------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [delhi]> select * from user limit 2,4;
++----+--------+---------+---------+--------+--------+
+| id | name   | city    | college | phone  | salary |
++----+--------+---------+---------+--------+--------+
+|  3 | rahul  | gwalior | itm     | 43245  | 3000   |
+|  4 | ramesh | bhopal  | rjit    | 245    | 1000   |
+|  5 | suresh | gwalior | mits    | 444444 | 1000   |
++----+--------+---------+---------+--------+--------+
+3 rows in set (0.001 sec)
+
+MariaDB [delhi]> select * from user;
++----+--------+---------+---------+--------+--------+
+| id | name   | city    | college | phone  | salary |
++----+--------+---------+---------+--------+--------+
+|  1 | amar   | gwalior | itm     | 33333  | 2000   |
+|  2 | akbar  | delhi   | amity   | 43245  | 1000   |
+|  3 | rahul  | gwalior | itm     | 43245  | 3000   |
+|  4 | ramesh | bhopal  | rjit    | 245    | 1000   |
+|  5 | suresh | gwalior | mits    | 444444 | 1000   |
++----+--------+---------+---------+--------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [delhi]> select * from user order by id desc;
++----+--------+---------+---------+--------+--------+
+| id | name   | city    | college | phone  | salary |
++----+--------+---------+---------+--------+--------+
+|  5 | suresh | gwalior | mits    | 444444 | 1000   |
+|  4 | ramesh | bhopal  | rjit    | 245    | 1000   |
+|  3 | rahul  | gwalior | itm     | 43245  | 3000   |
+|  2 | akbar  | delhi   | amity   | 43245  | 1000   |
+|  1 | amar   | gwalior | itm     | 33333  | 2000   |
++----+--------+---------+---------+--------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [delhi]> select * from user order by id desc limit 4;
++----+--------+---------+---------+--------+--------+
+| id | name   | city    | college | phone  | salary |
++----+--------+---------+---------+--------+--------+
+|  5 | suresh | gwalior | mits    | 444444 | 1000   |
+|  4 | ramesh | bhopal  | rjit    | 245    | 1000   |
+|  3 | rahul  | gwalior | itm     | 43245  | 3000   |
+|  2 | akbar  | delhi   | amity   | 43245  | 1000   |
++----+--------+---------+---------+--------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [delhi]> select * from user where city = "gwalior" and college = "itm";
++----+-------+---------+---------+-------+--------+
+| id | name  | city    | college | phone | salary |
++----+-------+---------+---------+-------+--------+
+|  1 | amar  | gwalior | itm     | 33333 | 2000   |
+|  3 | rahul | gwalior | itm     | 43245 | 3000   |
++----+-------+---------+---------+-------+--------+
+2 rows in set (0.006 sec)
+
+MariaDB [delhi]> select * from user where city = "gwalior" and college = "iitb";
+Empty set (0.001 sec)
+
+MariaDB [delhi]> select * from user where city = "gwalior" and (college = "itm" or salary = "1000");
++----+--------+---------+---------+--------+--------+
+| id | name   | city    | college | phone  | salary |
++----+--------+---------+---------+--------+--------+
+|  1 | amar   | gwalior | itm     | 33333  | 2000   |
+|  3 | rahul  | gwalior | itm     | 43245  | 3000   |
+|  5 | suresh | gwalior | mits    | 444444 | 1000   |
++----+--------+---------+---------+--------+--------+
+3 rows in set (0.003 sec)
+
+MariaDB [delhi]>

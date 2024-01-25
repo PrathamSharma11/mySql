@@ -1,0 +1,173 @@
+
+Setting environment for using XAMPP for Windows.
+dell@DESKTOP-GRU9DLK c:\xampp
+# mysql -h localhost -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 24
+Server version: 10.4.20-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> desc admission;
+ERROR 1046 (3D000): No database selected
+MariaDB [(none)]> use sirt;
+Database changed
+MariaDB [sirt]> desc admission;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(50) | YES  |     | NULL    |       |
+| city  | varchar(50) | YES  |     | NULL    |       |
+| mob   | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.102 sec)
+
+MariaDB [sirt]> insert into admission(name,city,mob)value('raj','gwalior',123456);
+Query OK, 1 row affected (0.008 sec)
+
+MariaDB [sirt]> insert into admission(name,city,mob)value('aman','nyc',123456);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [sirt]> insert into admission(name,city,mob)value('pratham','la',11116);
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [sirt]> insert into admission(name,city,mob)value('wolf','la',222234);
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [sirt]> desc admission;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(50) | YES  |     | NULL    |       |
+| city  | varchar(50) | YES  |     | NULL    |       |
+| mob   | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.107 sec)
+
+MariaDB [sirt]> select * from admission;
++---------+---------+--------+
+| name    | city    | mob    |
++---------+---------+--------+
+| pratham | bhopal  | 911    |
+| aman    | gwalior | 62612  |
+| raj     | gwalior | 123456 |
+| aman    | nyc     | 123456 |
+| pratham | la      | 11116  |
+| wolf    | la      | 222234 |
++---------+---------+--------+
+6 rows in set (0.001 sec)
+
+MariaDB [sirt]> select * from admission where name = "wolf";
++------+------+--------+
+| name | city | mob    |
++------+------+--------+
+| wolf | la   | 222234 |
++------+------+--------+
+1 row in set (0.001 sec)
+
+MariaDB [sirt]> select mob from admission where name = "pratham";
++-------+
+| mob   |
++-------+
+| 911   |
+| 11116 |
++-------+
+2 rows in set (0.001 sec)
+
+MariaDB [sirt]> select * from admission where city = "gwalior";
++------+---------+--------+
+| name | city    | mob    |
++------+---------+--------+
+| aman | gwalior | 62612  |
+| raj  | gwalior | 123456 |
++------+---------+--------+
+2 rows in set (0.001 sec)
+
+MariaDB [sirt]> select name from admission where city = "gwalior";
++------+
+| name |
++------+
+| aman |
+| raj  |
++------+
+2 rows in set (0.001 sec)
+
+MariaDB [sirt]> select * from abc;
++----+--------+--------+
+| id | name   | city   |
++----+--------+--------+
+|  1 | ram    | goa    |
+|  2 | rakesh | bhopal |
+|  3 | raj    | delhi  |
++----+--------+--------+
+3 rows in set (0.010 sec)
+
+MariaDB [sirt]> desc abc;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(40) | YES  |     | NULL    |                |
+| city  | varchar(50) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+3 rows in set (0.098 sec)
+
+MariaDB [sirt]> select * from abc;
++----+--------+--------+
+| id | name   | city   |
++----+--------+--------+
+|  1 | ram    | goa    |
+|  2 | rakesh | bhopal |
+|  3 | raj    | delhi  |
++----+--------+--------+
+3 rows in set (0.001 sec)
+
+MariaDB [sirt]> select * from abc where city = "goa";
++----+------+------+
+| id | name | city |
++----+------+------+
+|  1 | ram  | goa  |
++----+------+------+
+1 row in set (0.001 sec)
+
+MariaDB [sirt]> insert into abc(name,city)value("amar","goa");
+Query OK, 1 row affected (0.006 sec)
+
+MariaDB [sirt]> insert into abc(name,city)value("akbar","goa");
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [sirt]> select * from abc where city = "goa";
++----+-------+------+
+| id | name  | city |
++----+-------+------+
+|  1 | ram   | goa  |
+|  4 | amar  | goa  |
+|  5 | akbar | goa  |
++----+-------+------+
+3 rows in set (0.001 sec)
+
+MariaDB [sirt]> select * from abc where id = "1";
++----+------+------+
+| id | name | city |
++----+------+------+
+|  1 | ram  | goa  |
++----+------+------+
+1 row in set (0.001 sec)
+
+MariaDB [sirt]> select name from abc where city="gwalior";
+Empty set (0.001 sec)
+
+MariaDB [sirt]> select name from abc where city="goa";
++-------+
+| name  |
++-------+
+| ram   |
+| amar  |
+| akbar |
++-------+
+3 rows in set (0.001 sec)
+
+MariaDB [sirt]>

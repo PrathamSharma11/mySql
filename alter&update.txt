@@ -1,0 +1,388 @@
+
+Setting environment for using XAMPP for Windows.
+dell@DESKTOP-GRU9DLK c:\xampp
+# mysql -h localhost -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.20-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use mits;
+Database changed
+MariaDB [mits]> select * from mits;
+ERROR 1146 (42S02): Table 'mits.mits' doesn't exist
+MariaDB [mits]> select * from products;
++-------+----+------+-----------+--------------+---------+-----------+------+------+-------+
+| price | id | xyz  | name      | email        | college | emergency | city | mpct | model |
++-------+----+------+-----------+--------------+---------+-----------+------+------+-------+
+| NULL  |  1 | NULL | john      | as@gmail.com | itm     | 911       | NULL | NULL | NULL  |
+| NULL  |  2 | NULL | akbar     | bs@gmail.com | itm     | 91        | NULL | NULL | NULL  |
+| NULL  |  3 | NULL | akbar     | cs@gmail.com | itm     | 1         | NULL | NULL | NULL  |
+| NULL  |  4 | NULL | anthionyr | ds@gmail.com | itm     | 100       | NULL | NULL | NULL  |
++-------+----+------+-----------+--------------+---------+-----------+------+------+-------+
+4 rows in set (0.078 sec)
+
+MariaDB [mits]> select * from uk;
++----+---------+--------------+---------+--------+-------+
+| id | name    | email        | college | salary | phone |
++----+---------+--------------+---------+--------+-------+
+|  1 | aman    | 11@gmail.com | itm     | 1000   | 911   |
+|  3 | pratham | 11@gmail.com | mits    | 2000   | 911   |
++----+---------+--------------+---------+--------+-------+
+2 rows in set (0.013 sec)
+
+MariaDB [mits]> desc uk;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| id      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(50) | YES  |     | NULL    |                |
+| email   | varchar(50) | YES  |     | NULL    |                |
+| college | varchar(50) | YES  | UNI | NULL    |                |
+| salary  | varchar(50) | YES  | UNI | NULL    |                |
+| phone   | varchar(50) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+6 rows in set (0.022 sec)
+
+MariaDB [mits]> create table uk2(id int auto_increment,name varchar(50),email varchar(50),salary varchar(50) unique key,college varchar(50),phone varchar(50),dept varchar(50),primary key(id));
+Query OK, 0 rows affected (0.024 sec)
+
+MariaDB [mits]> desc uk2;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| id      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(50) | YES  |     | NULL    |                |
+| email   | varchar(50) | YES  |     | NULL    |                |
+| salary  | varchar(50) | YES  | UNI | NULL    |                |
+| college | varchar(50) | YES  |     | NULL    |                |
+| phone   | varchar(50) | YES  |     | NULL    |                |
+| dept    | varchar(50) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+7 rows in set (0.023 sec)
+
+MariaDB [mits]> insert into uk2(name,email,salary,college,phone,dept)value("aman","ab@gmail.com","1000","mits","911","cs");
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [mits]> select * from uk2;
++----+------+--------------+--------+---------+-------+------+
+| id | name | email        | salary | college | phone | dept |
++----+------+--------------+--------+---------+-------+------+
+|  1 | aman | ab@gmail.com | 1000   | mits    | 911   | cs   |
++----+------+--------------+--------+---------+-------+------+
+1 row in set (0.000 sec)
+
+MariaDB [mits]> insert into uk2(name,email,salary,college,phone,dept)value("chaman","bb@gmail.com","2000","its","911","cs");
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> insert into uk2(name,email,salary,college,phone,dept)value("chaman","bb@gmail.com","3000","itm","9111","it");
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> insert into uk2(name,email,salary,college,phone,dept)value("raman","cdb@gmail.com","4000","rjit","11","ec");
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [mits]> select * from uk2;
++----+--------+---------------+--------+---------+-------+------+
+| id | name   | email         | salary | college | phone | dept |
++----+--------+---------------+--------+---------+-------+------+
+|  1 | aman   | ab@gmail.com  | 1000   | mits    | 911   | cs   |
+|  2 | chaman | bb@gmail.com  | 2000   | its     | 911   | cs   |
+|  3 | chaman | bb@gmail.com  | 3000   | itm     | 9111  | it   |
+|  4 | raman  | cdb@gmail.com | 4000   | rjit    | 11    | ec   |
++----+--------+---------------+--------+---------+-------+------+
+4 rows in set (0.001 sec)
+
+MariaDB [mits]> alter table uk2 add column city varchar(50);
+Query OK, 0 rows affected (0.024 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mits]> desc uk2;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| id      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(50) | YES  |     | NULL    |                |
+| email   | varchar(50) | YES  |     | NULL    |                |
+| salary  | varchar(50) | YES  | UNI | NULL    |                |
+| college | varchar(50) | YES  |     | NULL    |                |
+| phone   | varchar(50) | YES  |     | NULL    |                |
+| dept    | varchar(50) | YES  |     | NULL    |                |
+| city    | varchar(50) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+8 rows in set (0.025 sec)
+
+MariaDB [mits]> alter table uk2 add column bonus varchar(50),add column aadhar varchar(50);
+Query OK, 0 rows affected (0.021 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mits]> desc uk2;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| id      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(50) | YES  |     | NULL    |                |
+| email   | varchar(50) | YES  |     | NULL    |                |
+| salary  | varchar(50) | YES  | UNI | NULL    |                |
+| college | varchar(50) | YES  |     | NULL    |                |
+| phone   | varchar(50) | YES  |     | NULL    |                |
+| dept    | varchar(50) | YES  |     | NULL    |                |
+| city    | varchar(50) | YES  |     | NULL    |                |
+| bonus   | varchar(50) | YES  |     | NULL    |                |
+| aadhar  | varchar(50) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+10 rows in set (0.022 sec)
+
+MariaDB [mits]> select * from uk2;
++----+--------+---------------+--------+---------+-------+------+------+-------+--------+
+| id | name   | email         | salary | college | phone | dept | city | bonus | aadhar |
++----+--------+---------------+--------+---------+-------+------+------+-------+--------+
+|  1 | aman   | ab@gmail.com  | 1000   | mits    | 911   | cs   | NULL | NULL  | NULL   |
+|  2 | chaman | bb@gmail.com  | 2000   | its     | 911   | cs   | NULL | NULL  | NULL   |
+|  3 | chaman | bb@gmail.com  | 3000   | itm     | 9111  | it   | NULL | NULL  | NULL   |
+|  4 | raman  | cdb@gmail.com | 4000   | rjit    | 11    | ec   | NULL | NULL  | NULL   |
++----+--------+---------------+--------+---------+-------+------+------+-------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [mits]> alter table uk2 add column price varchar(50) first;
+Query OK, 0 rows affected (0.017 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mits]> select * from uk2;
++-------+----+--------+---------------+--------+---------+-------+------+------+-------+--------+
+| price | id | name   | email         | salary | college | phone | dept | city | bonus | aadhar |
++-------+----+--------+---------------+--------+---------+-------+------+------+-------+--------+
+| NULL  |  1 | aman   | ab@gmail.com  | 1000   | mits    | 911   | cs   | NULL | NULL  | NULL   |
+| NULL  |  2 | chaman | bb@gmail.com  | 2000   | its     | 911   | cs   | NULL | NULL  | NULL   |
+| NULL  |  3 | chaman | bb@gmail.com  | 3000   | itm     | 9111  | it   | NULL | NULL  | NULL   |
+| NULL  |  4 | raman  | cdb@gmail.com | 4000   | rjit    | 11    | ec   | NULL | NULL  | NULL   |
++-------+----+--------+---------------+--------+---------+-------+------+------+-------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [mits]> desc uk2;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| price   | varchar(50) | YES  |     | NULL    |                |
+| id      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(50) | YES  |     | NULL    |                |
+| email   | varchar(50) | YES  |     | NULL    |                |
+| salary  | varchar(50) | YES  | UNI | NULL    |                |
+| college | varchar(50) | YES  |     | NULL    |                |
+| phone   | varchar(50) | YES  |     | NULL    |                |
+| dept    | varchar(50) | YES  |     | NULL    |                |
+| city    | varchar(50) | YES  |     | NULL    |                |
+| bonus   | varchar(50) | YES  |     | NULL    |                |
+| aadhar  | varchar(50) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+11 rows in set (0.024 sec)
+
+MariaDB [mits]> alter table uk2 add column city varchar(50) after email;
+ERROR 1060 (42S21): Duplicate column name 'city'
+MariaDB [mits]> alter table uk2 add column model varchar(50) first;
+Query OK, 0 rows affected (0.023 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mits]> desc uk2;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| model   | varchar(50) | YES  |     | NULL    |                |
+| price   | varchar(50) | YES  |     | NULL    |                |
+| id      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(50) | YES  |     | NULL    |                |
+| email   | varchar(50) | YES  |     | NULL    |                |
+| salary  | varchar(50) | YES  | UNI | NULL    |                |
+| college | varchar(50) | YES  |     | NULL    |                |
+| phone   | varchar(50) | YES  |     | NULL    |                |
+| dept    | varchar(50) | YES  |     | NULL    |                |
+| city    | varchar(50) | YES  |     | NULL    |                |
+| bonus   | varchar(50) | YES  |     | NULL    |                |
+| aadhar  | varchar(50) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+12 rows in set (0.027 sec)
+
+MariaDB [mits]> alter table uk2 add column left varchar(50) after email;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'left varchar(50) after email' at line 1
+MariaDB [mits]> alter table uk2 add column capacity varchar(50) after email;
+Query OK, 0 rows affected (0.017 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mits]> desc uk2;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| model    | varchar(50) | YES  |     | NULL    |                |
+| price    | varchar(50) | YES  |     | NULL    |                |
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(50) | YES  |     | NULL    |                |
+| email    | varchar(50) | YES  |     | NULL    |                |
+| capacity | varchar(50) | YES  |     | NULL    |                |
+| salary   | varchar(50) | YES  | UNI | NULL    |                |
+| college  | varchar(50) | YES  |     | NULL    |                |
+| phone    | varchar(50) | YES  |     | NULL    |                |
+| dept     | varchar(50) | YES  |     | NULL    |                |
+| city     | varchar(50) | YES  |     | NULL    |                |
+| bonus    | varchar(50) | YES  |     | NULL    |                |
+| aadhar   | varchar(50) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+13 rows in set (0.019 sec)
+
+MariaDB [mits]> alter table uk2 add column speed varchar(50) unique key after id;
+Query OK, 0 rows affected (0.070 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mits]> desc uk2;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| model    | varchar(50) | YES  |     | NULL    |                |
+| price    | varchar(50) | YES  |     | NULL    |                |
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| speed    | varchar(50) | YES  | UNI | NULL    |                |
+| name     | varchar(50) | YES  |     | NULL    |                |
+| email    | varchar(50) | YES  |     | NULL    |                |
+| capacity | varchar(50) | YES  |     | NULL    |                |
+| salary   | varchar(50) | YES  | UNI | NULL    |                |
+| college  | varchar(50) | YES  |     | NULL    |                |
+| phone    | varchar(50) | YES  |     | NULL    |                |
+| dept     | varchar(50) | YES  |     | NULL    |                |
+| city     | varchar(50) | YES  |     | NULL    |                |
+| bonus    | varchar(50) | YES  |     | NULL    |                |
+| aadhar   | varchar(50) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+14 rows in set (0.020 sec)
+
+MariaDB [mits]> alter table uk2 add column coupon varchar(50) unique key;
+Query OK, 0 rows affected (0.061 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mits]> desc uk2;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| model    | varchar(50) | YES  |     | NULL    |                |
+| price    | varchar(50) | YES  |     | NULL    |                |
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| speed    | varchar(50) | YES  | UNI | NULL    |                |
+| name     | varchar(50) | YES  |     | NULL    |                |
+| email    | varchar(50) | YES  |     | NULL    |                |
+| capacity | varchar(50) | YES  |     | NULL    |                |
+| salary   | varchar(50) | YES  | UNI | NULL    |                |
+| college  | varchar(50) | YES  |     | NULL    |                |
+| phone    | varchar(50) | YES  |     | NULL    |                |
+| dept     | varchar(50) | YES  |     | NULL    |                |
+| city     | varchar(50) | YES  |     | NULL    |                |
+| bonus    | varchar(50) | YES  |     | NULL    |                |
+| aadhar   | varchar(50) | YES  |     | NULL    |                |
+| coupon   | varchar(50) | YES  | UNI | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+15 rows in set (0.014 sec)
+
+MariaDB [mits]> alter table uk2 add constraint unique key (city);
+Query OK, 0 rows affected (0.022 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mits]> desc uk2;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| model    | varchar(50) | YES  |     | NULL    |                |
+| price    | varchar(50) | YES  |     | NULL    |                |
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| speed    | varchar(50) | YES  | UNI | NULL    |                |
+| name     | varchar(50) | YES  |     | NULL    |                |
+| email    | varchar(50) | YES  |     | NULL    |                |
+| capacity | varchar(50) | YES  |     | NULL    |                |
+| salary   | varchar(50) | YES  | UNI | NULL    |                |
+| college  | varchar(50) | YES  |     | NULL    |                |
+| phone    | varchar(50) | YES  |     | NULL    |                |
+| dept     | varchar(50) | YES  |     | NULL    |                |
+| city     | varchar(50) | YES  | UNI | NULL    |                |
+| bonus    | varchar(50) | YES  |     | NULL    |                |
+| aadhar   | varchar(50) | YES  |     | NULL    |                |
+| coupon   | varchar(50) | YES  | UNI | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+15 rows in set (0.014 sec)
+
+MariaDB [mits]> alter table uk2 change column aadhar aadharno varchar(50);
+Query OK, 0 rows affected (0.021 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mits]> desc uk2;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| model    | varchar(50) | YES  |     | NULL    |                |
+| price    | varchar(50) | YES  |     | NULL    |                |
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| speed    | varchar(50) | YES  | UNI | NULL    |                |
+| name     | varchar(50) | YES  |     | NULL    |                |
+| email    | varchar(50) | YES  |     | NULL    |                |
+| capacity | varchar(50) | YES  |     | NULL    |                |
+| salary   | varchar(50) | YES  | UNI | NULL    |                |
+| college  | varchar(50) | YES  |     | NULL    |                |
+| phone    | varchar(50) | YES  |     | NULL    |                |
+| dept     | varchar(50) | YES  |     | NULL    |                |
+| city     | varchar(50) | YES  | UNI | NULL    |                |
+| bonus    | varchar(50) | YES  |     | NULL    |                |
+| aadharno | varchar(50) | YES  |     | NULL    |                |
+| coupon   | varchar(50) | YES  | UNI | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+15 rows in set (0.015 sec)
+
+MariaDB [mits]> alter table uk2 drop column aadharno;
+Query OK, 0 rows affected (0.016 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mits]> desc uk2;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| model    | varchar(50) | YES  |     | NULL    |                |
+| price    | varchar(50) | YES  |     | NULL    |                |
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| speed    | varchar(50) | YES  | UNI | NULL    |                |
+| name     | varchar(50) | YES  |     | NULL    |                |
+| email    | varchar(50) | YES  |     | NULL    |                |
+| capacity | varchar(50) | YES  |     | NULL    |                |
+| salary   | varchar(50) | YES  | UNI | NULL    |                |
+| college  | varchar(50) | YES  |     | NULL    |                |
+| phone    | varchar(50) | YES  |     | NULL    |                |
+| dept     | varchar(50) | YES  |     | NULL    |                |
+| city     | varchar(50) | YES  | UNI | NULL    |                |
+| bonus    | varchar(50) | YES  |     | NULL    |                |
+| coupon   | varchar(50) | YES  | UNI | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+14 rows in set (0.013 sec)
+
+MariaDB [mits]> select * from uk2;
++-------+-------+----+-------+--------+---------------+----------+--------+---------+-------+------+------+-------+--------+
+| model | price | id | speed | name   | email         | capacity | salary | college | phone | dept | city | bonus | coupon |
++-------+-------+----+-------+--------+---------------+----------+--------+---------+-------+------+------+-------+--------+
+| NULL  | NULL  |  1 | NULL  | aman   | ab@gmail.com  | NULL     | 1000   | mits    | 911   | cs   | NULL | NULL  | NULL   |
+| NULL  | NULL  |  2 | NULL  | chaman | bb@gmail.com  | NULL     | 2000   | its     | 911   | cs   | NULL | NULL  | NULL   |
+| NULL  | NULL  |  3 | NULL  | chaman | bb@gmail.com  | NULL     | 3000   | itm     | 9111  | it   | NULL | NULL  | NULL   |
+| NULL  | NULL  |  4 | NULL  | raman  | cdb@gmail.com | NULL     | 4000   | rjit    | 11    | ec   | NULL | NULL  | NULL   |
++-------+-------+----+-------+--------+---------------+----------+--------+---------+-------+------+------+-------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [mits]> update uk2 set name = "pratham",phone = "111" where id = 1;
+Query OK, 1 row affected (0.004 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [mits]> select * from uk2;
++-------+-------+----+-------+---------+---------------+----------+--------+---------+-------+------+------+-------+--------+
+| model | price | id | speed | name    | email         | capacity | salary | college | phone | dept | city | bonus | coupon |
++-------+-------+----+-------+---------+---------------+----------+--------+---------+-------+------+------+-------+--------+
+| NULL  | NULL  |  1 | NULL  | pratham | ab@gmail.com  | NULL     | 1000   | mits    | 111   | cs   | NULL | NULL  | NULL   |
+| NULL  | NULL  |  2 | NULL  | chaman  | bb@gmail.com  | NULL     | 2000   | its     | 911   | cs   | NULL | NULL  | NULL   |
+| NULL  | NULL  |  3 | NULL  | chaman  | bb@gmail.com  | NULL     | 3000   | itm     | 9111  | it   | NULL | NULL  | NULL   |
+| NULL  | NULL  |  4 | NULL  | raman   | cdb@gmail.com | NULL     | 4000   | rjit    | 11    | ec   | NULL | NULL  | NULL   |
++-------+-------+----+-------+---------+---------------+----------+--------+---------+-------+------+------+-------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [mits]>

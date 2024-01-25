@@ -1,0 +1,159 @@
+
+Setting environment for using XAMPP for Windows.
+dell@DESKTOP-GRU9DLK c:\xampp
+# mysql -h localhost -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.20-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]>
+MariaDB [(none)]> use mits;
+Database changed
+MariaDB [mits]> show tables;
++----------------+
+| Tables_in_mits |
++----------------+
+| army           |
+| cart           |
+| department     |
+| department2    |
+| employee       |
+| employee2      |
+| order_pro      |
+| order_pros     |
+| prac           |
+| product        |
+| products       |
+| rjit           |
+| students       |
+| teachers       |
+| uk             |
+| uk2            |
+| user           |
+| users          |
++----------------+
+18 rows in set (0.009 sec)
+
+MariaDB [mits]> select * from employee;
++-----+-------+-------------+
+| eid | ename | address     |
++-----+-------+-------------+
+|   1 | aman  | gandhinagar |
+|   2 | akbar | gandhinagar |
+|   3 | raj   | nagar       |
+|   4 | rahul | abcnagar    |
++-----+-------+-------------+
+4 rows in set (0.065 sec)
+
+MariaDB [mits]> select * from department;
++-----+-------+-----+
+| did | dname | eid |
++-----+-------+-----+
+|   1 | it    |   1 |
+|   2 | it    |   2 |
+|   3 | cs    |   3 |
+|   4 | me    |   4 |
+|   5 | ee    |   4 |
+|   6 | ec    |   2 |
++-----+-------+-----+
+6 rows in set (0.010 sec)
+
+MariaDB [mits]> select * from employee join department on employee.eid = department.eid;
++-----+-------+-------------+-----+-------+-----+
+| eid | ename | address     | did | dname | eid |
++-----+-------+-------------+-----+-------+-----+
+|   1 | aman  | gandhinagar |   1 | it    |   1 |
+|   2 | akbar | gandhinagar |   2 | it    |   2 |
+|   3 | raj   | nagar       |   3 | cs    |   3 |
+|   4 | rahul | abcnagar    |   4 | me    |   4 |
+|   4 | rahul | abcnagar    |   5 | ee    |   4 |
+|   2 | akbar | gandhinagar |   6 | ec    |   2 |
++-----+-------+-------------+-----+-------+-----+
+6 rows in set (0.025 sec)
+
+MariaDB [mits]> select * from employee inner join department on employee.eid = department.eid;
++-----+-------+-------------+-----+-------+-----+
+| eid | ename | address     | did | dname | eid |
++-----+-------+-------------+-----+-------+-----+
+|   1 | aman  | gandhinagar |   1 | it    |   1 |
+|   2 | akbar | gandhinagar |   2 | it    |   2 |
+|   3 | raj   | nagar       |   3 | cs    |   3 |
+|   4 | rahul | abcnagar    |   4 | me    |   4 |
+|   4 | rahul | abcnagar    |   5 | ee    |   4 |
+|   2 | akbar | gandhinagar |   6 | ec    |   2 |
++-----+-------+-------------+-----+-------+-----+
+6 rows in set (0.001 sec)
+
+MariaDB [mits]> select ename,dname from employee inner join department on employee.eid = department.eid;
++-------+-------+
+| ename | dname |
++-------+-------+
+| aman  | it    |
+| akbar | it    |
+| raj   | cs    |
+| rahul | me    |
+| rahul | ee    |
+| akbar | ec    |
++-------+-------+
+6 rows in set (0.003 sec)
+
+MariaDB [mits]> select ename,dname from employee left join department on employee.eid = department.eid;
++-------+-------+
+| ename | dname |
++-------+-------+
+| aman  | it    |
+| akbar | it    |
+| akbar | ec    |
+| raj   | cs    |
+| rahul | me    |
+| rahul | ee    |
++-------+-------+
+6 rows in set (0.005 sec)
+
+MariaDB [mits]> select * from employee left join department on employee.eid = department.eid;
++-----+-------+-------------+------+-------+------+
+| eid | ename | address     | did  | dname | eid  |
++-----+-------+-------------+------+-------+------+
+|   1 | aman  | gandhinagar |    1 | it    |    1 |
+|   2 | akbar | gandhinagar |    2 | it    |    2 |
+|   2 | akbar | gandhinagar |    6 | ec    |    2 |
+|   3 | raj   | nagar       |    3 | cs    |    3 |
+|   4 | rahul | abcnagar    |    4 | me    |    4 |
+|   4 | rahul | abcnagar    |    5 | ee    |    4 |
++-----+-------+-------------+------+-------+------+
+6 rows in set (0.004 sec)
+
+MariaDB [mits]> select * from employee;
++-----+-------+-------------+
+| eid | ename | address     |
++-----+-------+-------------+
+|   1 | aman  | gandhinagar |
+|   2 | akbar | gandhinagar |
+|   3 | raj   | nagar       |
+|   4 | rahul | abcnagar    |
++-----+-------+-------------+
+4 rows in set (0.001 sec)
+
+MariaDB [mits]> insert into employee(ename,address)value("ranbir","vihar");
+Query OK, 1 row affected (0.025 sec)
+
+MariaDB [mits]> select * from employee left join department on employee.eid = department.eid;
++-----+--------+-------------+------+-------+------+
+| eid | ename  | address     | did  | dname | eid  |
++-----+--------+-------------+------+-------+------+
+|   1 | aman   | gandhinagar |    1 | it    |    1 |
+|   2 | akbar  | gandhinagar |    2 | it    |    2 |
+|   2 | akbar  | gandhinagar |    6 | ec    |    2 |
+|   3 | raj    | nagar       |    3 | cs    |    3 |
+|   4 | rahul  | abcnagar    |    4 | me    |    4 |
+|   4 | rahul  | abcnagar    |    5 | ee    |    4 |
+|   5 | ranbir | vihar       | NULL | NULL  | NULL |
++-----+--------+-------------+------+-------+------+
+7 rows in set (0.002 sec)
+
+MariaDB [mits]>
